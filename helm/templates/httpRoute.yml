@@ -28,6 +28,13 @@ spec:
   hostnames:
   - "{{ .Values.gateway.host }}"
   rules:
+  - matches:
+    # Match everything except ACME challenge
+    - path:
+        type: PathPrefix
+        value: /
+        except:
+          - /.well-known/acme-challenge/
   - filters:
     - type: RequestRedirect
       requestRedirect:
