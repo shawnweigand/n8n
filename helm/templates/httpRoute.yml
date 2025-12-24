@@ -1,10 +1,11 @@
 apiVersion: gateway.networking.k8s.io/v1alpha2
 kind: HTTPRoute
 metadata:
-  name: "{{ .Release.Name }}-httproute"
+  name: "{{ .Release.Name }}-httpsroute"
 spec:
   parentRefs:
   - name: "{{ .Release.Name }}-gateway"
+    sectionName: https
   hostnames:
   - "*.{{ .Values.gateway.host }}"
   - "www.*.{{ .Values.gateway.host }}"
@@ -14,5 +15,23 @@ spec:
         type: PathPrefix
         value: /
     backendRefs:
-    - name: {{ .Release.Name }}
+    - name: "{{ .Release.Name }}-service"
       port: {{ .Values.gateway.internalPort }}
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: "{{ .Release.Name }}-httproute"
+spec:
+  parentRefs:
+  - name: "{{ .Release.Name }}-gateway"
+    sectionName: http
+  hostnames:
+  - "*.{{ .Values.gateway.host }}"
+  - "www.*.{{ .Values.gateway.host }}"
+  rules:
+  - filters:
+    - type: RequestRedirect
+      requestRedirect:
+        scheme: https
+        statusCode: 301
