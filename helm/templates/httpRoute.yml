@@ -1,3 +1,23 @@
+# ACME challenge route
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: "{{ .Release.Name }}-httproute-acme"
+spec:
+  parentRefs:
+  - name: "{{ .Release.Name }}-gateway"
+    sectionName: http
+  hostnames:
+  - "{{ .Values.gateway.host }}"
+  rules:
+  - matches:
+      - path:
+          type: PathPrefix
+          value: /.well-known/acme-challenge/
+    backendRefs:
+      - name: cm-acme-http-solver-{{ .Release.Name }}
+        port: 8089
+---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
@@ -8,14 +28,16 @@ spec:
     sectionName: https
   hostnames:
   - "{{ .Values.gateway.host }}"
-  rules:
+rules:
   - matches:
-    - path:
-        type: PathPrefix
-        value: /
-    backendRefs:
-    - name: "{{ .Release.Name }}-service"
-      port: {{ .Values.gateway.internalPort }}
+      - path:
+          type: PathPrefix
+          value: /
+    filters:
+      - type: RequestRedirect
+        requestRedirect:
+          scheme: https
+          statusCode: 301
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
@@ -37,23 +59,3 @@ spec:
       requestRedirect:
         scheme: https
         statusCode: 301
----
-# ACME challenge route
-apiVersion: gateway.networking.k8s.io/v1
-kind: HTTPRoute
-metadata:
-  name: "{{ .Release.Name }}-httproute-acme"
-spec:
-  parentRefs:
-  - name: "{{ .Release.Name }}-gateway"
-    sectionName: http
-  hostnames:
-  - "{{ .Values.gateway.host }}"
-  rules:
-  - matches:
-      - path:
-          type: PathPrefix
-          value: /.well-known/acme-challenge/
-    backendRefs:
-      - name: cm-acme-http-solver-{{ .Release.Name }}
-        port: 8089
