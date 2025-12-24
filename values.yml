@@ -6,8 +6,7 @@ deployment:
     tag: 2.1.4
 
 gateway:
-  host: n8n.theshawnshop.com
-  externalPort: 80
+  host: theshawnshop.com
   internalPort: 5678
 
 secret:

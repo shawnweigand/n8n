@@ -9,7 +9,18 @@ spec:
   listeners:
   - name: http
     protocol: HTTP
-    port: {{ .Values.gateway.externalPort }}
+    port: 80
+    allowedRoutes:
+      namespaces:
+        from: All
+    http:
+      redirect:
+        statusCode: 308
+        scheme: HTTPS
+        port: 443
+  - name: https
+    protocol: HTTPS
+    port: 443
     tls:
       mode: Terminate
       certificateRefs:
