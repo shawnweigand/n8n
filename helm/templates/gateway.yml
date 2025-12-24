@@ -5,7 +5,7 @@ metadata:
   annotations:
     cert-manager.io/issuer: "{{ .Release.Name }}-issuer"
 spec:
-  gatewayClassName: "cilium"
+  gatewayClassName: "kong"
   listeners:
   - name: http
     protocol: HTTP
