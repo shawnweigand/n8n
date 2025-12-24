@@ -1,7 +1,7 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
-  name: "{{ .Release.Name }}-gateway"
+  name: "cilium"
   annotations:
     cert-manager.io/issuer: "{{ .Release.Name }}-issuer"
 spec:

@@ -8,7 +8,6 @@ deployment:
 gateway:
   host: example.com
   internalPort: 5678
-  createClass: true
 
 secret:
   dopplerToken: overwriteThisValue
