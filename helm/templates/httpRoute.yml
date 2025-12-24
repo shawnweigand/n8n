@@ -15,4 +15,4 @@ spec:
         value: /
     backendRefs:
     - name: {{ .Release.Name }}
-      port: {{ .Values.ingress.internalPort }}
+      port: {{ .Values.gateway.internalPort }}
