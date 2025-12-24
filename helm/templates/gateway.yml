@@ -16,4 +16,6 @@ spec:
     tls:
       mode: Terminate
       certificateRefs:
-      - name: "{{ .Release.Name }}-certificate"
+      - kind: Secret
+        group: ""
+        name: "{{ .Release.Name }}-tls-secret"
