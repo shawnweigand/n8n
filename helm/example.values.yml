@@ -6,7 +6,7 @@ deployment:
     tag: 2.1.4
 
 gateway:
-  host: example.com
+  host: n8n.example.com
   internalPort: 5678
 
 secret:
