@@ -10,14 +10,7 @@ env:
   HELM_CHART_PATH: ./helm
 
 jobs:
-  checkout:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-
   deploy:
-    needs: checkout
     runs-on: ubuntu-latest
     steps:
       - name: Install doctl
@@ -28,6 +21,8 @@ jobs:
         run: doctl kubernetes cluster kubeconfig save ${{ vars.DO_CLUSTER_NAME }}
       - name: Helm tool installer
         uses: azure/setup-helm@v4.2.0
+      - name: Checkout code
+        uses: actions/checkout@v3
       - name: Show Helm Template
         run: |
           helm template \
