@@ -16,6 +16,9 @@ spec:
     solvers:
       # Use the HTTP-01 challenge provider
       - http01:
-          ingress:
-            class: nginx
+          gatewayHTTPRoute:
+            parentRefs:
+              - name: {{ .Release.Name }}-gateway
+                namespace: {{ .Release.Name }}
+                kind: Gateway
 {{- end }}
