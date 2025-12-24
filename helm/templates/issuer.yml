@@ -1,24 +1,24 @@
-# {{- if .Values.issuer.create }}
-# apiVersion: cert-manager.io/v1
-# kind: Issuer
-# metadata:
-#   name: "{{ .Release.Name }}-issuer"
-# spec:
-#   # ACME issuer configuration
-#   # `email` - the email address to be associated with the ACME account (make sure it's a valid one)
-#   # `server` - the URL used to access the ACME server’s directory endpoint
-#   # `privateKeySecretRef` - Kubernetes Secret to store the automatically generated ACME account private key
-#   acme:
-#     email: {{ .Values.issuer.email }}
-#     server: {{ .Values.issuer.server }}
-#     privateKeySecretRef:
-#       name: "{{ .Release.Name }}-private-key-secret"
-#     solvers:
-#       # Use the HTTP-01 challenge provider
-#       - http01:
-#           gatewayHTTPRoute:
-#             parentRefs:
-#               - name: {{ .Release.Name }}-gateway
-#                 namespace: {{ .Release.Name }}
-#                 kind: Gateway
-# {{- end }}
+{{- if .Values.issuer.create }}
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: "{{ .Release.Name }}-issuer"
+spec:
+  # ACME issuer configuration
+  # `email` - the email address to be associated with the ACME account (make sure it's a valid one)
+  # `server` - the URL used to access the ACME server’s directory endpoint
+  # `privateKeySecretRef` - Kubernetes Secret to store the automatically generated ACME account private key
+  acme:
+    email: {{ .Values.issuer.email }}
+    server: {{ .Values.issuer.server }}
+    privateKeySecretRef:
+      name: "{{ .Release.Name }}-private-key-secret"
+    solvers:
+      # Use the HTTP-01 challenge provider
+      - http01:
+          gatewayHTTPRoute:
+            parentRefs:
+              - name: {{ .Release.Name }}-gateway
+                namespace: {{ .Release.Name }}
+                kind: Gateway
+{{- end }}
