@@ -1,0 +1,16 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: "{{ .Release.Name }}-gateway"
+  annotations:
+    cert-manager.io/issuer: "{{ .Release.Name }}-issuer"
+spec:
+  gatewayClassName: "{{ .Release.Name }}-gatewayclass"
+  listeners:
+  - name: http
+    protocol: HTTP
+    port: {{ .Values.gateway.externalPort }}
+    tls:
+      mode: Terminate
+      certificateRefs:
+      - name: "{{ .Release.Name }}-certificate"

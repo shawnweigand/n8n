@@ -1,0 +1,35 @@
+# Example values.yaml using portfolio data
+deployment:
+  replicas: 1
+  image:
+    repository: n8nio/n8n
+    tag: 2.1.4
+
+gateway:
+  host: n8n.jetpac.ks
+  externalPort: 80
+  internalPort: 5678
+
+secret:
+  dopplerToken: overwriteThisValue
+
+issuer:
+  email: weigandshawn@gmail.com
+  server: https://acme-v02.api.letsencrypt.org/directory
+  create: true
+
+config:
+  N8N_BASIC_AUTH_ACTIVE: true
+  N8N_BASIC_AUTH_USER: weigandshawn
+  N8N_HOST: n8n.jetpac.ks
+  N8N_PORT: 5678
+  N8N_PROTOCOL: http
+  WEBHOOK_URL: https://n8n.jetpac.ks/
+  GENERIC_TIMEZONE: America/New_York
+  TZ: America/New_York
+  N8N_RUNNERS_ENABLED: true
+  N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS: true
+  DB_TYPE: postgresdb
+  DB_POSTGRESDB_PORT: 5432
+  DB_SCHEMA: public
+  DB_POSTGRESDB_SSL: false

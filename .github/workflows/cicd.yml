@@ -1,0 +1,46 @@
+name: CI/CD Pipeline
+
+on:
+  workflow_dispatch:
+
+env:
+  RELEASE_NAME: n8n
+  NAMESPACE: n8n
+  VALUES_PATH: values.yml
+  HELM_CHART_PATH: helm
+
+jobs:
+  checkout:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+  deploy:
+    needs: checkout
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DO_API_TOKEN }}
+      - name: Save DigitalOcean kubeconfig
+        run: doctl kubernetes cluster kubeconfig save ${{ vars.DO_CLUSTER_NAME }}
+      - name: Helm tool installer
+        uses: azure/setup-helm@v4.2.0
+      - name: Show Helm Template
+        run: |
+          helm template \
+            -f ${{ env.VALUES_PATH }} \
+            ${{ env.RELEASE_NAME }} \
+            ${{ env.HELM_CHART_PATH }} \
+            --set secret.dopplerToken=${{ secrets.DOPPLER_TOKEN }} \
+            --namespace ${{ env.NAMESPACE }}    
+      - name: Deploy Helm chart to DOKS
+        run: |
+          helm upgrade --install \
+          -f ${{ env.VALUES_PATH }} \
+          ${{ env.RELEASE_NAME }} \
+          ${{ env.HELM_CHART_PATH }} \
+          --set secret.dopplerToken=${{ secrets.DOPPLER_TOKEN }} \
+          --namespace ${{ env.NAMESPACE }}
