@@ -30,8 +30,7 @@ jobs:
             ${{ env.RELEASE_NAME }} \
             ${{ env.HELM_CHART_PATH }} \
             --set secret.dopplerToken=${{ secrets.DOPPLER_TOKEN }} \
-            --namespace ${{ env.NAMESPACE }} \
-            --force-replace    
+            --namespace ${{ env.NAMESPACE }}
       - name: Deploy Helm chart to DOKS
         run: |
           helm upgrade --install \
@@ -39,5 +38,4 @@ jobs:
           ${{ env.RELEASE_NAME }} \
           ${{ env.HELM_CHART_PATH }} \
           --set secret.dopplerToken=${{ secrets.DOPPLER_TOKEN }} \
-          --namespace ${{ env.NAMESPACE }} \
-          --force-replace    
+          --namespace ${{ env.NAMESPACE }}
