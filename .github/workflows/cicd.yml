@@ -6,8 +6,8 @@ on:
 env:
   RELEASE_NAME: n8n
   NAMESPACE: n8n
-  VALUES_PATH: values.yml
-  HELM_CHART_PATH: helm
+  VALUES_PATH: ./values.yml
+  HELM_CHART_PATH: ./helm
 
 jobs:
   checkout:
