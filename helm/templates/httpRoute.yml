@@ -29,14 +29,31 @@ spec:
   - "{{ .Values.gateway.host }}"
   rules:
   - matches:
-    # Match everything except ACME challenge
     - path:
         type: PathPrefix
         value: /
-        except:
-          - /.well-known/acme-challenge/
   - filters:
     - type: RequestRedirect
       requestRedirect:
         scheme: https
         statusCode: 301
+---
+# ACME challenge route
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: "{{ .Release.Name }}-httproute-acme"
+spec:
+  parentRefs:
+  - name: "{{ .Release.Name }}-gateway"
+    sectionName: http
+  hostnames:
+  - "{{ .Values.gateway.host }}"
+  rules:
+  - matches:
+      - path:
+          type: PathPrefix
+          value: /.well-known/acme-challenge/
+    backendRefs:
+      - name: cm-acme-http-solver-{{ .Release.Name }}
+        port: 8089
