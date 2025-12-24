@@ -8,7 +8,6 @@ spec:
     sectionName: https
   hostnames:
   - "*.{{ .Values.gateway.host }}"
-  - "www.*.{{ .Values.gateway.host }}"
   rules:
   - matches:
     - path:
@@ -28,7 +27,6 @@ spec:
     sectionName: http
   hostnames:
   - "*.{{ .Values.gateway.host }}"
-  - "www.*.{{ .Values.gateway.host }}"
   rules:
   - filters:
     - type: RequestRedirect
