@@ -18,15 +18,15 @@ spec:
         - name: cm-acme-http-solver-{{ .Release.Name }}
           port: 8089
     # Catch-all redirect second
-    - matches:
-        - path:
-            type: PathPrefix
-            value: /
-      filters:
-        - type: RequestRedirect
-          requestRedirect:
-            scheme: https
-            statusCode: 301
+    # - matches:
+    #     - path:
+    #         type: PathPrefix
+    #         value: /
+    #   filters:
+    #     - type: RequestRedirect
+    #       requestRedirect:
+    #         scheme: https
+    #         statusCode: 301
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
