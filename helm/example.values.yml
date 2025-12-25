@@ -15,7 +15,7 @@ secret:
 issuer:
   email: user@email.com
   server: https://acme-v02.api.letsencrypt.org/directory
-  create: true
+  cloudflareApiToken: overwriteThisValue
 
 config:
   APP_NAME: test

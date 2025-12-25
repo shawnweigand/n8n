@@ -15,7 +15,7 @@ secret:
 issuer:
   email: weigandshawn@gmail.com
   server: https://acme-v02.api.letsencrypt.org/directory
-  create: true
+  cloudflareApiToken: overwriteThisValue
 
 config:
   N8N_BASIC_AUTH_ACTIVE: true

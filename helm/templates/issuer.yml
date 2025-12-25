@@ -1,4 +1,3 @@
-{{- if .Values.issuer.create }}
 apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
@@ -14,11 +13,15 @@ spec:
     privateKeySecretRef:
       name: "{{ .Release.Name }}-private-key-secret"
     solvers:
+      - dns01:
+          cloudflare:
+            apiTokenSecretRef:
+              name: cloudflare-api-token-secret
+              key: api-token
       # Use the HTTP-01 challenge provider
-      - http01:
-          gatewayHTTPRoute:
-            parentRefs:
-              - name: {{ .Release.Name }}-gateway
-                namespace: {{ .Release.Name }}
-                kind: Gateway
-{{- end }}
+      # - http01:
+      #     gatewayHTTPRoute:
+      #       parentRefs:
+      #         - name: {{ .Release.Name }}-gateway
+      #           namespace: {{ .Release.Name }}
+      #           kind: Gateway
