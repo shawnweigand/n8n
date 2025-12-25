@@ -4,6 +4,7 @@ metadata:
   name: "{{ .Release.Name }}-gateway"
   annotations:
     cert-manager.io/issuer: "{{ .Release.Name }}-issuer"
+    cert-manager.io/private-key-encoding: PKCS8
 spec:
   gatewayClassName: "kong"
   listeners:
