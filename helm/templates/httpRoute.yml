@@ -4,27 +4,29 @@ metadata:
   name: "{{ .Release.Name }}-httproute"
 spec:
   parentRefs:
-  - name: "{{ .Release.Name }}-gateway"
-    sectionName: http
+    - name: "{{ .Release.Name }}-gateway"
+      sectionName: http
   hostnames:
-  - "{{ .Values.gateway.host }}"
+    - "{{ .Values.gateway.host }}"
   rules:
-  - matches:
-      - path:
-          type: PathPrefix
-          value: /.well-known/acme-challenge/
-    backendRefs:
-      - name: cm-acme-http-solver-{{ .Release.Name }}
-        port: 8089
-  - matches:
-    - path:
-        type: PathPrefix
-        value: /
-    filters:
-    - type: RequestRedirect
-      requestRedirect:
-        scheme: https
-        statusCode: 301
+    # ACME challenge first
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /.well-known/acme-challenge/
+      backendRefs:
+        - name: cm-acme-http-solver-{{ .Release.Name }}
+          port: 8089
+    # Catch-all redirect second
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      filters:
+        - type: RequestRedirect
+          requestRedirect:
+            scheme: https
+            statusCode: 301
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
