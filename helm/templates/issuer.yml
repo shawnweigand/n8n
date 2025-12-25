@@ -18,10 +18,3 @@ spec:
             apiTokenSecretRef:
               name: cloudflare-api-token-secret
               key: api-token
-      # Use the HTTP-01 challenge provider
-      # - http01:
-      #     gatewayHTTPRoute:
-      #       parentRefs:
-      #         - name: {{ .Release.Name }}-gateway
-      #           namespace: {{ .Release.Name }}
-      #           kind: Gateway
