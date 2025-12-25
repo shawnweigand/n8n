@@ -17,6 +17,9 @@ issuer:
   server: https://acme-v02.api.letsencrypt.org/directory
   cloudflareApiToken: overwriteThisValue
 
+pdb:
+  minAvailable: 1
+  
 config:
   APP_NAME: test
   REDIS_HOST: test-redis

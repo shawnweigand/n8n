@@ -1,0 +1,23 @@
+# Example values.yaml using portfolio data
+deployment:
+  replicas: 1
+  image:
+    repository: n8nio/n8n
+    tag: 2.1.4
+
+ingress:
+  host: n8n.example.com
+  tls: true
+  externalPort: 80
+  internalPort: 5678
+
+secret:
+  dopplerToken: overwriteThisValue
+
+issuer:
+  email: user@email.com
+  server: https://acme-v02.api.letsencrypt.org/directory
+
+config:
+  APP_NAME: test
+  REDIS_HOST: test-redis
