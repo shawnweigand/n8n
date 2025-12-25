@@ -30,8 +30,8 @@ jobs:
             ${{ env.RELEASE_NAME }} \
             ${{ env.HELM_CHART_PATH }} \
             --set secret.dopplerToken=${{ secrets.DOPPLER_TOKEN }} \
-            # --set issuer.cloudflareApiToken=${{ secrets.CLOUDFLARE_API_TOKEN }} \
             --namespace ${{ env.NAMESPACE }}
+            # --set issuer.cloudflareApiToken=${{ secrets.CLOUDFLARE_API_TOKEN }} \
       - name: Deploy Helm chart to DOKS
         run: |
           helm upgrade --install \
@@ -39,5 +39,5 @@ jobs:
           ${{ env.RELEASE_NAME }} \
           ${{ env.HELM_CHART_PATH }} \
           --set secret.dopplerToken=${{ secrets.DOPPLER_TOKEN }} \
-          # --set issuer.cloudflareApiToken=${{ secrets.CLOUDFLARE_API_TOKEN }} \
           --namespace ${{ env.NAMESPACE }}
+          # --set issuer.cloudflareApiToken=${{ secrets.CLOUDFLARE_API_TOKEN }} \
