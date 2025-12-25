@@ -28,16 +28,16 @@ spec:
     sectionName: https
   hostnames:
   - "{{ .Values.gateway.host }}"
-rules:
-  - matches:
-      - path:
-          type: PathPrefix
-          value: /
-    filters:
-      - type: RequestRedirect
-        requestRedirect:
-          scheme: https
-          statusCode: 301
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      filters:
+        - type: RequestRedirect
+          requestRedirect:
+            scheme: https
+            statusCode: 301
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
