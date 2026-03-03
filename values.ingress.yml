@@ -26,8 +26,9 @@ config:
   N8N_BASIC_AUTH_USER: weigandshawn
   N8N_HOST: n8n.theshawnshop.com
   N8N_PORT: 5678
-  N8N_PROTOCOL: http
+  N8N_PROTOCOL: https
   WEBHOOK_URL: https://n8n.theshawnshop.com/
+  N8N_EDITOR_BASE_URL: https://n8n.theshawnshop.com
   GENERIC_TIMEZONE: America/New_York
   TZ: America/New_York
   N8N_RUNNERS_ENABLED: true
