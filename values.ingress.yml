@@ -3,7 +3,7 @@ deployment:
   replicas: 1
   image:
     repository: n8nio/n8n
-    tag: 2.1.4
+    tag: 2.19.2
 
 ingress:
   host: n8n.theshawnshop.com
